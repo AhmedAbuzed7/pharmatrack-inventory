@@ -1,32 +1,45 @@
-# React + TypeScript + Vite
+# PharmaTrack Ops Suite — AI-Assisted Pharmacy Inventory Management
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A production-grade pharmacy operations and inventory control dashboard built with **React 19**, **TypeScript**, **Tailwind CSS v4**, and the **Google Gen AI SDK** (`@google/genai`).
 
-Currently, two official plugins are available:
+PharmaTrack streamlines daily pharmacy stock control, automates clinical documentation and supplier restock communications via Gemini, and guards patient safety through AI contraindication screening.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ⚡ Core Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Real-Time Inventory Operations**: Full CRUD lifecycle with stock level steppers, category filtering, search across drug names/SKUs/distributors, and localStorage persistence.
+- **Role-Based Access Control (RBAC)**:
+  - **Staff Mode**: Read-only audit view preventing accidental data mutations.
+  - **Admin Mode**: Full catalog modification, deletion, and CSV import permissions protected behind an authorization passcode challenge (`8888`).
+- **Automated Expiry & Depletion Tracking**: Dynamic visual indicators categorizing stock into active, Low Stock ($Q \le \text{Min}$), Critical Depletion ($Q = 0$), Near-Expiry ($< 30\text{ Days}$), and Expired states.
+- **Enterprise CSV Tools**: Zero-dependency client-side CSV export and structured CSV manifest batch-importing with automatic field sanitization.
+- **Destructive Action Confirmation**: Guarded SKU deletion workflows with contextual warning modals.
+- **AI Clinical Intelligence (Google Gemini)**:
+  - **Clinical Description Generator**: Automatically synthesizes pharmacological summaries and mechanism-of-action notes for new medications.
+  - **AI Restock Procurement Drafter**: Scans depleted inventory and drafts formal purchase order emails to medical suppliers.
+  - **Drug-Drug Contraindication Checker**: Cross-analyzes multi-drug combinations for CYP enzymatic competition, absorption conflicts, and clinical adverse risks.
+  - **Fault-Tolerant AI Engine**: Multi-model fallback queue (`gemini-2.5-flash` / `gemini-1.5-flash`), 12-second hard timeouts, and in-app Bring-Your-Own-Key (BYOK) storage.
 
-## Expanding the Oxlint configuration
+---
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## 🛠️ Tech Stack & Architecture
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+- **Frontend**: React 19, TypeScript
+- **Styling**: Tailwind CSS v4 (`@tailwindcss/vite`)
+- **Build Tool**: Vite 8 (Rolldown engine with optimized chunk splitting for vendor, icons, and AI libraries)
+- **AI Integration**: `@google/genai` (Google Gemini SDK)
+- **Icons**: Lucide React
+- **Persistence**: LocalStorage with factory-reset restoration
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone & Install
+
+```bash
+git clone [https://github.com/AhmedAbuzed7/pharmatrack-inventory.git](https://github.com/AhmedAbuzed7/pharmatrack-inventory.git)
+cd pharmatrack-inventory
+npm install
 ```
-
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
